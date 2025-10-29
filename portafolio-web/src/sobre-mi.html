@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre mí | daddyLeo</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* [Se mantiene el bloque <style> CSS intacto] */
+        /* ... Estilos CSS ... */
+        body {
+            background: url('../asset/fondo3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .bubbles-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            z-index: 100;
+            transform: translateY(-120%);
+            transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .bubbles-nav.visible {
+            transform: translateY(0);
+        }
+
+        .glass-card {
+            backdrop-filter: blur(12px) saturate(1.2);
+            -webkit-backdrop-filter: blur(12px) saturate(1.2);
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 24px;
+            padding: 40px 48px;
+            max-width: 680px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .25);
+        }
+
+        .glass-card h2 {
+            margin-top: 0;
+            font-size: 2rem;
+            background: linear-gradient(90deg, #ff61a6 0%, #00eaff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 24px 60px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        section.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bubbles-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            z-index: 100;
+            transform: translateY(-120%);
+            animation: dropIn 0.8s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        @keyframes dropIn {
+            0% {
+                transform: translateY(-120%);
+            }
+
+            70% {
+                transform: translateY(8px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .bubbles-nav.visible {
+            transform: translateY(0);
+        }
+
+        .main-content {
+            padding-top: 100px;
+        }
+
+        @keyframes liquidRipple {
+            0% {
+                transform: scale(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pageFadeOut {
+            0% {
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            100% {
+                opacity: 0;
+                filter: blur(6px);
+            }
+        }
+
+        body.changing {
+            animation: pageFadeOut .45s forwards;
+        }
+    </style>
+</head>
+
+<body class="sobre-mi">
+    <div class="light-beam"></div>
+
+    <nav class="bubbles-nav" id="bubbles">
+        <a href="home.html" class="bubble">Home</a>
+        <a href="sobre-mi.html" class="bubble active">Sobre mí</a>
+        <a href="proyectos.html" class="bubble">Mis Proyectos</a>
+        <a href="contacto.html" class="bubble">Contacto</a>
+    </nav>
+
+    <div class="main-content">
+        
+        <section id="bio">
+            <div class="glass-card">
+                <h2>¿Quién soy?</h2>
+                <p>
+                    Soy <strong>IRAN PASCUAL LEÓN HERNÁNDEZ</strong>, Ingeniero en Sistemas Computacionales
+                    apasionado por el hardware de cualquier equipo tecnologico, la ciberseguridad o rastreo etico
+                    usando normas OSINT o HUMINT, ademas de apasionarme el desarrollo de aplicaciones de escritorio más
+                    enfocado al Backend. Además de mejorar mi conocimiento sobre S0 y tecnologias modernas.
+                    Me mueve la curiosidad, el análisis profundo y la música como forma de expresión.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="glass-card">
+                <h2>Tecnologías & Habilidades</h2>
+                <p>
+                    Identifico problemas para darles soluciones temporales para cubrir la necesidad, para despues
+                    más a detalle una más completa y segura.
+                    Habilidades en el entorno de Ingenieria Social, haciendo uso de herramientosas como OSINT y
+                    HUMINT.
+                    Desarrollo de aplicaciones de escritorio, y conocimientos sobre desarrollo musical.
+                    Uso de lenguajes como Python, C#, conjunto de desarrollo web (HTML,CSS,JAVASCRI). Dominio de SO
+                    tipo UNIX, Herramientas de ciberseguridad e Ingenieria Social.. Uso de motores de Producción como
+                    FLSTUDIO.
+                </p>
+            </div>
+        </section>
+
+        <section id="hobbies">
+            <div class="glass-card">
+                <h2>Extra-currículum</h2>
+                <p>
+                    Producción musical, diseño sonoro, fotografía analógica, y explorar la intersección
+                    entre tecnología y arte. Me encanta desarmar cosas para entender cómo piensan.
+                </p>
+            </div>
+        </section>
+
+    </div> <script>
+        const sections = document.querySelectorAll('section');
+        const bubbles = document.getElementById('bubbles');
+
+        const reveal = () => {
+            const trigger = window.innerHeight * .85;
+            sections.forEach(s => {
+                if (s.getBoundingClientRect().top < trigger) s.classList.add('reveal');
+            });
+
+            // mostrar/ocultar burbujas
+            bubbles.classList.toggle('visible', window.scrollY > 180);
+        };
+        window.addEventListener('scroll', reveal);
+        reveal(); // 1ra carga
+    </script>
+
+    <script>
+        // Luciérnagas (3 tamaños, 0-0.5s delay)
+        const sizes = [2, 3, 5]; // px
+        const qty = 20;
+        const fireContainer = document.createElement('div');
+        fireContainer.className = 'fireflies';
+        for (let i = 0; i < qty; i++) {
+            const fly = document.createElement('div');
+            fly.className = 'firefly';
+            fly.style.left = `${Math.random() * 100}%`;
+            fly.style.animationDelay = `${Math.random() * 0.5}s`;
+            fly.style.animationDuration = `${6 + Math.random() * 4}s`;
+            fly.style.width = `${sizes[Math.floor(Math.random() * sizes.length)]}px`;
+            fly.style.height = fly.style.width;
+            fireContainer.appendChild(fly);
+        }
+        document.body.appendChild(fireContainer);
+
+        // Haz de luz full-width
+        const beam = document.createElement('div');
+        beam.className = 'light-beam';
+        document.body.appendChild(beam);
+    </script>
+
+    <script>
+        document.querySelectorAll('.bubbles-nav .bubble').forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (this.classList.contains('active')) return; // mismo lugar
+
+                e.preventDefault();
+                const url = this.href;
+
+                // 1) onda desde el botón
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.inset = '0';
+                ripple.style.margin = 'auto';
+                ripple.style.width = '40px';
+                ripple.style.height = '40px';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(0,234,255,.45)';
+                ripple.style.animation = 'liquidRipple .45s ease-out';
+                ripple.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+
+                // 2) desvanecer página
+                document.body.classList.add('changing');
+
+                // 3) cuando termine → ir a la nueva
+                setTimeout(() => (window.location.href = url), 450);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,426 @@
+/* ---------- FUENTES EXTERNAS ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@300;600&display=swap');
+
+/* ---------- RESET BÁSICO ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Exo 2', 'Segoe UI', Arial, sans-serif;
+    background: #000;
+    color: #fff;
+}
+
+/* ---------- HERO ---------- */
+/* main.css - Bloque .hero Corregido */
+.hero {
+    min-height: 85vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    position: relative;
+    /* Reducido para ahorrar espacio vertical */
+    padding-top: 20px;
+}
+
+/* ---------- NAV BURBUJAS ---------- */
+/* main.css - Bloque .bubbles-home Corregido */
+.bubbles-home {
+    display: flex;
+    gap: clamp(12px, 2vw, 50px);
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Ahora: Reducido */
+    margin-top: clamp(8px, 1.5vh, 20px);
+    padding: 0 10px;
+}
+
+.bubble {
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 28px);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    /* AÑADIDO: 'opacity 0.25s' para la animación de campo de fuerza */
+    transition: background 0.25s, transform 0.25s, opacity 0.25s;
+    position: relative;
+    overflow: hidden;
+}
+
+.bubble:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-4px) scale(1.05);
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.7) 50%,
+            transparent 100%);
+    transform: skewX(-25deg);
+    transition: left 0.6s;
+}
+
+.bubble:hover::after {
+    left: 120%;
+}
+
+/* ---------- INTRO GLASS CARD (RESPONSIVE) ---------- */
+.intro {
+    width: 90%;
+    max-width: clamp(300px, 90vw, 680px);
+    /* MARGEN MANTENIDO: No se toca el margen superior */
+    margin: clamp(20px, 4vh, 40px) auto 0 auto;
+    padding: clamp(16px, 4vw, 32px) clamp(18px, 5vw, 40px);
+    border-radius: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+    color: #fff;
+    text-align: center;
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    line-height: 1.7;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    transition: background 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.intro:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+}
+
+.intro::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.7) 50%,
+            transparent 100%);
+    transform: skewX(-25deg);
+    transition: left 0.6s;
+    pointer-events: none;
+}
+
+.intro:hover::after {
+    left: 120%;
+}
+
+.intro p {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
+    margin: 0;
+}
+
+.resalta {
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff61a6 0%, #00eaff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    position: relative;
+}
+
+.resalta::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #ff61a6 0%, #00eaff 100%);
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    opacity: 0.7;
+}
+
+/* ---------- FONDOS ---------- */
+/* Solo se deja .fondo4 ya que es el único usado en home.html */
+.fondo4 {
+    background: url('../asset/fondo4.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* ---------- ENTRADAS SUAVES ---------- */
+.intro,
+.bubbles-home {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s 0.5s forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- EFECTO LÍQUIDO EN CLIC ---------- */
+.bubble.liquify {
+    transform: scale(1.5) !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    z-index: 10;
+}
+
+.bubble.liquify~.bubble {
+    transform: scale(0.6) translateX(var(--moveX)) !important;
+    opacity: 0.3 !important;
+}
+
+@keyframes absorb {
+    to {
+        transform: scale(2.2) rotate(360deg);
+        opacity: 0;
+        filter: blur(8px);
+    }
+}
+
+/* ---------- LOGO LIQUID-GLASS PORTAL ---------- */
+/* ---------- LOGO NORMAL (pulse + shine) ---------- */
+/* main.css - Bloque .logo-header Corregido (se completa con estilos básicos) */
+.logo-header {
+    display: block;
+    /* Ahora: Reducido para ahorrar espacio */
+    margin: clamp(10px, 2vh, 20px) auto clamp(4px, 1vh, 8px) auto;
+    max-width: clamp(200px, 40vw, 500px);
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.18));
+    animation: pulseLogo 3.5s ease-in-out infinite,
+        logoShine 4s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+    /* Asegura la transición para el efecto glow */
+    transition: transform .4s cubic-bezier(.16, 1, .3, 1), filter .4s;
+}
+
+/* AÑADIDO: ESTILO DE REACCIÓN EN HOVER (CAMPO DE FUERZA) */
+.logo-header.logo-glow {
+    /* Iluminación sutil usando los colores principales */
+    filter: drop-shadow(0 0 15px rgba(0, 234, 255, .5)) drop-shadow(0 0 30px rgba(255, 97, 166, .3));
+    transform: scale(1.02);
+    /* Pequeño pulso */
+}
+
+@keyframes pulseLogo {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+    }
+}
+
+@keyframes logoShine {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(0, 234, 255, .3)) drop-shadow(0 0 20px rgba(255, 97, 166, .2));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 25px rgba(0, 234, 255, .6)) drop-shadow(0 0 40px rgba(255, 97, 166, .4));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 10px rgba(0, 234, 255, .3)) drop-shadow(0 0 20px rgba(255, 97, 166, .2));
+    }
+}
+
+.logo-header.liquify-portal {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 50px #00eaff) drop-shadow(0 0 100px #ff61a6);
+}
+
+/* Gotas que se desprenden */
+.logo-header.liquify-portal::before,
+.logo-header.liquify-portal::after {
+    content: '';
+    position: absolute;
+    width: clamp(20px, 3vw, 35px);
+    height: clamp(20px, 3vw, 35px);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00eaff, #ff61a6);
+    opacity: 0;
+    animation: dropResp 0.7s forwards;
+}
+
+.logo-header.liquify-portal::before {
+    top: -15px;
+    left: 25%;
+    animation-delay: 0.1s;
+}
+
+.logo-header.liquify-portal::after {
+    bottom: -15px;
+    right: 25%;
+    animation-delay: 0.3s;
+}
+
+@keyframes dropResp {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.2);
+        opacity: 0;
+        filter: blur(6px);
+    }
+}
+
+/* Portal final (se diluye) */
+.logo-header.portal-out {
+    animation: dilute 0.6s forwards;
+}
+
+@keyframes dilute {
+    to {
+        transform: scale(0.95);
+        opacity: 0;
+        filter: blur(10px) brightness(1.8);
+    }
+}
+
+/* ---------- ENTRADA LOGO ---------- */
+.logo-header {
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: dropIn 1s 0.3s forwards;
+}
+
+@keyframes dropIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- LUCIÉRNAGAS ---------- */
+.fireflies {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.firefly {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #00eaff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px #00eaff;
+    opacity: 0;
+    animation: float 12s infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* ---------- HAZ DE LUZ FULL-WIDTH ---------- */
+.light-beam {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 70vh;
+    background: radial-gradient(ellipse at bottom,
+            rgba(0, 234, 255, .20) 0%,
+            rgba(255, 97, 166, .12) 35%,
+            transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: beamPulse 5s ease-in-out infinite;
+}
+
+@keyframes beamPulse {
+
+    0%,
+    100% {
+        opacity: .25;
+    }
+
+    50% {
+        opacity: .45;
+    }
+}
+/* ===================================== */
+/* ---------- ESTADO ACTIVO NAV (AURA SUTIL) ---------- */
+/* ===================================== */
+.bubbles-nav .bubble.active,
+.bubbles-home .bubble.active {
+    /* Mantenemos el borde para anclar el efecto */
+    border: 1px solid rgba(0, 234, 255, 0.5); /* Borde menos opaco */
+    
+    /* Aura exterior más sutil */
+    box-shadow: 
+        0 0 10px 2px rgba(0, 234, 255, 0.3), /* Aura difusa con menos opacidad */
+        inset 0 0 4px 1px rgba(0, 234, 255, 0.6); /* Brillo interior más tenue */
+    
+    /* Sombra de neón en el texto (más suave) */
+    color: #fff;
+    text-shadow: 
+        0 0 4px #fff,
+        0 0 8px rgba(0, 234, 255, 0.8), /* Sombra de neón reducida */
+        0 0 15px rgba(0, 234, 255, 0.4); /* Capa exterior más difusa */
+}
+

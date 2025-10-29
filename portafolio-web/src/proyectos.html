@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Proyectos | daddyLeo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body.proyectos {
+            background: url('asset/fondoX.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 200vh;
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(90deg, #00eaff 0%, #ff61a6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* ← 2 por fila siempre */
+            gap: 48px;
+            /* más aire entre tarjetas */
+            max-width: 1000px;
+            /* anchura máxima del bloque */
+            margin: 0 auto;
+            /* centrado horizontal */
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Móviles: una columna */
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glass-card {
+            position: relative;
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px) saturate(1.2);
+            -webkit-backdrop-filter: blur(10px) saturate(1.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(.16, 1, .3, 1), background 0.4s, box-shadow 0.4s;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+        }
+
+        .glass-card.reveal {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 234, 255, 0.25), 0 0 20px rgba(255, 97, 166, 0.15);
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+            transform: skewX(-25deg);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+
+        .glass-card:hover::after {
+            left: 120%;
+        }
+
+        .glass-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: #00eaff;
+        }
+
+        .project-tags {
+            font-size: 0.85rem;
+            color: #ff61a6;
+            margin-bottom: 20px;
+        }
+
+        /* ---------- TARJETA-CLICK (entera es un botón) ---------- */
+        .glass-card {
+            cursor: pointer;
+            /* ... el resto de tus estilos ... */
+        }
+
+        /* Leyenda que aparece al hover */
+        .glass-card::before {
+            content: 'Ver';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: #00eaff;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity .3s, transform .3s;
+            pointer-events: none;
+            /* para que no interfiera con el click */
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bubbles-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            z-index: 100;
+
+            /* animación de entrada */
+            transform: translateY(-120%);
+            animation: dropIn 0.8s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        @keyframes dropIn {
+            0% {
+                transform: translateY(-120%);
+            }
+
+            70% {
+                transform: translateY(8px);
+            }
+
+            /* pequeño rebote */
+            100% {
+                transform: translateY(0);
+            }
+
+            /* posición final */
+        }
+
+        .bubbles-nav.visible {
+            transform: translateY(0);
+        }
+
+        .main-content {
+            padding-top: 100px;
+            /* ajustá este valor a tu gusto (90-120 px suele quedar bien) */
+        }
+
+        /* Onda líquida que sale del botón */
+        @keyframes liquidRipple {
+            0% {
+                transform: scale(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Fundido del contenido */
+        @keyframes pageFadeOut {
+            0% {
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            100% {
+                opacity: 0;
+                filter: blur(6px);
+            }
+        }
+
+        body.changing {
+            animation: pageFadeOut .45s forwards;
+        }
+    </style>
+</head>
+
+<body class="proyectos">
+    <nav class="bubbles-nav" id="bubbles">
+        <a href="home.html" class="bubble">Home</a>
+        <a href="sobre-mi.html" class="bubble">Sobre mí</a>
+        <a href="proyectos.html" class="bubble active">Mis Proyectos</a>
+        <a href="contacto.html" class="bubble">Contacto</a>
+    </nav>
+
+    <div class="main-content">
+        <h1 class="page-title">Archivo de Proyectos</h1>
+
+        <div class="projects-grid">
+            <article class="glass-card" data-delay="0.1">
+                <h3>DetectSensePrism</h3>
+                <p class="project-tags">Python | C++ | C# | Asistencia | Hardware</p>
+                <p>Sistema de asistencias para estudiantes mediante biometría, para optimizar tiempos y evitar fraudes.
+                </p>
+
+            </article>
+
+            <article class="glass-card" data-delay="0.3">
+                <h3>P.R.I.S.M.A</h3>
+                <p class="project-tags">Python | C++ | UNIX | C# | Asistencia | Hardware</p>
+                <p>Evolución industrial de DetectSensePrism: registro de personal, permisos y verificación.</p>
+
+            </article>
+
+            <article class="glass-card" data-delay="0.5">
+                <h3>SafeTheSound</h3>
+                <p class="project-tags">HTML | CSS | JavaScript | React | Python</p>
+                <p>App web para extraer instrumentos y sintetizadores de canciones y recrearlas en DAWs.</p>
+
+            </article>
+
+            <article class="glass-card" data-delay="0.7">
+                <h3>PrismaticOS</h3>
+                <p class="project-tags">C# | C++ | Rust</p>
+                <p>Sistema operativo open-source totalmente personalizable.</p>
+
+            </article>
+        </div>
+    </div>
+
+    <script src="scripts/liquify-nav.js"></script>
+    <script>
+        // Revelado con delay
+        const revealStagger = () => {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach((card, i) => {
+                const delay = parseFloat(card.dataset.delay) || 0;
+                setTimeout(() => {
+                    card.classList.add('reveal');
+                }, delay * 1000);
+            });
+        };
+        window.addEventListener('load', revealStagger);
+
+        // Nav fija
+        const bubbles = document.getElementById('bubbles');
+        const toggleNav = () => bubbles.classList.toggle('visible', window.scrollY > 150);
+        window.addEventListener('scroll', toggleNav);
+        toggleNav();
+
+        // Decoraciones
+        if (document.body.classList.contains('proyectos')) {
+            const sizes = [2, 3, 5];
+            const qty = 20;
+            const fireContainer = document.createElement('div');
+            fireContainer.className = 'fireflies';
+            for (let i = 0; i < qty; i++) {
+                const fly = document.createElement('div');
+                fly.className = 'firefly';
+                fly.style.left = `${Math.random() * 100}%`;
+                fly.style.animationDelay = `${Math.random() * 1}s`;
+                fly.style.animationDuration = `${6 + Math.random() * 4}s`;
+                fly.style.width = `${sizes[Math.floor(Math.random() * sizes.length)]}px`;
+                fly.style.height = fly.style.width;
+                fireContainer.appendChild(fly);
+            }
+            document.body.appendChild(fireContainer);
+
+            const beam = document.createElement('div');
+            beam.className = 'light-beam';
+            document.body.appendChild(beam);
+        }
+    </script>
+
+    <script>
+        // Cada tarjeta funciona como botón
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const url = card.dataset.href;
+                if (url) window.open(url, '_blank');
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.bubbles-nav .bubble').forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (this.classList.contains('active')) return; // mismo lugar
+
+                e.preventDefault();
+                const url = this.href;
+
+                // 1) onda desde el botón
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.inset = '0';
+                ripple.style.margin = 'auto';
+                ripple.style.width = '40px';
+                ripple.style.height = '40px';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(0,234,255,.45)';
+                ripple.style.animation = 'liquidRipple .45s ease-out';
+                ripple.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+
+                // 2) desvanecer página
+                document.body.classList.add('changing');
+
+                // 3) cuando termine → ir a la nueva
+                setTimeout(() => (window.location.href = url), 450);
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

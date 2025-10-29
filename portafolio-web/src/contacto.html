@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | daddyLeo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/main.css">
+
+    <style>
+        /* Ajuste de fondo y espaciado */
+        body.contacto {
+            /* REEMPLAZAR con tu imagen de fondo específica para contacto si aplica */
+            background: url('asset/fondo3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            /* Ya que no habrá tanto scroll */
+        }
+
+        .main-content {
+            /* Centrado en la pantalla (usando flexbox para la única tarjeta) */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Centrar verticalmente */
+            padding: 100px 5vw 80px;
+        }
+
+        /* Título principal de la sección */
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 40px;
+            /* Degradado de Resalta */
+            background: linear-gradient(90deg, #00eaff 0%, #ff61a6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        /* ---------------------------------- */
+        /* TARJETA PRINCIPAL (reutiliza estilos de .intro / .glass-card) */
+        /* ---------------------------------- */
+        .glass-card-contacto {
+            width: 90%;
+            max-width: 600px;
+            /* Tamaño ideal para un formulario */
+            padding: clamp(30px, 6vw, 50px);
+            border-radius: 26px;
+            /* Propiedades Liquid Glass Card */
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px) saturate(1.2);
+            -webkit-backdrop-filter: blur(10px) saturate(1.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+            transition: transform 0.3s;
+            /* Animación de entrada única */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s 0.3s forwards;
+        }
+
+        .glass-card-contacto:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        /* ---------------------------------- */
+        /* ESTILOS DE FORMULARIO (Liquid Neon Inputs) */
+        /* ---------------------------------- */
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00eaff;
+            /* Etiqueta color neón claro */
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 0 5px rgba(0, 234, 255, 0.05);
+            /* Sombra inicial muy sutil */
+            transition: border 0.3s, box-shadow 0.3s, background 0.3s;
+            resize: vertical;
+        }
+
+        /* Efecto NEON GLOW al enfocarse */
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #ff61a6;
+            /* Borde secundario */
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.5), 0 0 20px rgba(255, 97, 166, 0.2);
+            /* Doble brillo */
+        }
+
+        /* Estilo del botón (Reutiliza .bubble y lo adapta a full-width) */
+        .send-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 15px 30px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            /* Reutiliza el estilo de .bubble para el aspecto liquid glass */
+            border-radius: 50px;
+            font-weight: 600;
+            color: #fff;
+            background: rgba(0, 234, 255, 0.15);
+            border: 1px solid rgba(0, 234, 255, 0.5);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 234, 255, 0.2);
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .send-button:hover {
+            background: rgba(0, 234, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 234, 255, 0.4);
+        }
+
+        /* ---------- BURBUJAS NAV FIJAS ---------- */
+        .bubbles-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            z-index: 100;
+
+            /* animación de entrada */
+            transform: translateY(-120%);
+            animation: dropIn 0.8s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        @keyframes dropIn {
+            0% {
+                transform: translateY(-120%);
+            }
+
+            70% {
+                transform: translateY(8px);
+            }
+
+            /* pequeño rebote */
+            100% {
+                transform: translateY(0);
+            }
+
+            /* posición final */
+        }
+
+        .bubbles-nav.visible {
+            transform: translateY(0);
+        }
+
+        .main-content {
+            padding-top: 100px;
+            /* ajustá este valor a tu gusto (90-120 px suele quedar bien) */
+        }
+
+        /* Onda líquida que sale del botón */
+        @keyframes liquidRipple {
+            0% {
+                transform: scale(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Fundido del contenido */
+        @keyframes pageFadeOut {
+            0% {
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            100% {
+                opacity: 0;
+                filter: blur(6px);
+            }
+        }
+
+        body.changing {
+            animation: pageFadeOut .45s forwards;
+        }
+    </style>
+</head>
+
+<body class="contacto">
+
+    <nav class="bubbles-nav" id="bubbles">
+        <a href="home.html" class="bubble">Home</a>
+        <a href="sobre-mi.html" class="bubble">Sobre mí</a>
+        <a href="proyectos.html" class="bubble">Mis Proyectos</a>
+        <a href="contacto.html" class="bubble active">Contacto</a>
+    </nav>
+
+    <div class="main-content">
+
+        <h1 class="page-title">Conexión con el Sistema</h1>
+
+        <div class="glass-card-contacto">
+
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6;">
+                ¿Tienes un proyecto, una consulta técnica o simplemente quieres hablar de ciberseguridad?
+                Envíame un mensaje directo.
+            </p>
+
+            <form class="contact-form" action="tu_script_de_procesamiento.php" method="POST">
+
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu identificación">
+
+                <label for="email">Dirección de Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required placeholder="protocolo@ejemplo.com">
+
+                <label for="asunto">Asunto (Protocolo):</label>
+                <input type="text" id="asunto" name="asunto" required
+                    placeholder="Solicitud de Conexión/Feedback/Error">
+
+                <label for="mensaje">Mensaje (Payload):</label>
+                <textarea id="mensaje" name="mensaje" rows="6" required
+                    placeholder="Describe el propósito de tu conexión aquí..."></textarea>
+
+                <button type="submit" class="send-button bubble">
+                    Enviar Datos & Conectar
+                </button>
+            </form>
+
+            <p
+                style="text-align: center; margin-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px;">
+                O contacta directamente a: <br>
+                **E-mail:** `iran.leon@protocolo.dev` | **LinkedIn:** `daddyLeo-sys`
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="scripts/liquify-nav.js"></script>
+
+    <script>
+        // Mantenemos la lógica de nav fijo y la generación de decoraciones
+        (() => {
+            const bubbles = document.getElementById('bubbles');
+
+            // Lógica para mostrar/ocultar burbujas de navegación fijas
+            const toggleNav = () => {
+                // Como es una página corta, podemos basar la visibilidad en un scroll mínimo.
+                bubbles.classList.toggle('visible', window.scrollY > 50);
+            };
+
+            window.addEventListener('scroll', toggleNav);
+            toggleNav(); // Ejecutamos una vez al cargar
+
+            // Decoraciones (Luciernagas + Haz de Luz) - Reutilizando el patrón
+            if (document.body.classList.contains('contacto')) {
+                const sizes = [2, 3, 5]; // px
+                const qty = 20;
+                const fireContainer = document.createElement('div');
+                fireContainer.className = 'fireflies';
+
+                for (let i = 0; i < qty; i++) {
+                    const fly = document.createElement('div');
+                    fly.className = 'firefly';
+                    fly.style.left = `${Math.random() * 100}%`;
+                    fly.style.animationDelay = `${Math.random() * 1}s`;
+                    fly.style.animationDuration = `${6 + Math.random() * 4}s`;
+                    fly.style.width = `${sizes[Math.floor(Math.random() * sizes.length)]}px`;
+                    fly.style.height = fly.style.width;
+                    fireContainer.appendChild(fly);
+                }
+                document.body.appendChild(fireContainer);
+
+                const beam = document.createElement('div');
+                beam.className = 'light-beam';
+                document.body.appendChild(beam);
+            }
+
+        })();
+    </script>
+
+    <script>
+        document.querySelectorAll('.bubbles-nav .bubble').forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (this.classList.contains('active')) return; // mismo lugar
+
+                e.preventDefault();
+                const url = this.href;
+
+                // 1) onda desde el botón
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.inset = '0';
+                ripple.style.margin = 'auto';
+                ripple.style.width = '40px';
+                ripple.style.height = '40px';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(0,234,255,.45)';
+                ripple.style.animation = 'liquidRipple .45s ease-out';
+                ripple.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+
+                // 2) desvanecer página
+                document.body.classList.add('changing');
+
+                // 3) cuando termine → ir a la nueva
+                setTimeout(() => (window.location.href = url), 450);
+            });
+        });
+    </script>
+</body>
+
+</html>
